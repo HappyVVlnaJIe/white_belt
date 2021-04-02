@@ -9,6 +9,7 @@
 #include <vector>
 #include <array>
 #include <functional>
+#include <iomanip>
 using namespace std;
 
 class Commands {
@@ -63,13 +64,80 @@ public:
 	}
 
 	static Date read_date(stringstream& sstream) {
-		int year, month, day;
+		vector<int> date;
 		string input;
 		sstream >> input;
-		if (sscanf(input.c_str(), "%d-%d-%d", &year, &month, &day) < 3) {
+		////сделать посимвольный 
+		//if (sscanf(input.c_str(), "%d-%d-%d", &year, &month, &day) != 3) {
+		//	throw invalid_argument("Wrong date format: " + input);
+		//}
+		//if (input.size() != (to_string(year).size()+ to_string(month).size() + to_string(day).size() + 2 + std::count(input.begin(),input.end(),'+'))) {
+		//	throw invalid_argument("Wrong date format: " + input);
+		//}
+		enum States {
+			first_symbol,
+			second_symbol,
+			only_numbers
+		};
+		States current_state = first_symbol;
+		string numb="";
+		char c;
+		int i = 0, k=0;
+		while (i < input.size()) {
+			switch (current_state)
+			{
+			case first_symbol:
+				c = input[i];
+				if (c != '-' && !isdigit(c) && c != '+') {
+					throw invalid_argument("Wrong date format: " + input);
+				}
+				numb += c;
+				i++;
+				if (!isdigit(c)) {
+					current_state = second_symbol;
+				}
+				else {
+					current_state = only_numbers;
+				}
+				break;
+
+			case second_symbol:
+				c = input[i];
+				if (!isdigit(c)) {
+					throw invalid_argument("Wrong date format: " + input);
+				}
+				numb += c;
+				i++;
+				current_state = only_numbers;
+				break;
+
+			case only_numbers:
+				c = input[i];
+				if (!isdigit(c) && c != '-') {
+					throw invalid_argument("Wrong date format: " + input);
+				}
+				if (isdigit(c)) {
+					numb += c;
+					i++;
+				}
+				if (c == '-') {
+					k++;
+					date.push_back(stoi(numb));
+					numb = "";
+					i++;
+					current_state = first_symbol;
+				}
+				break;
+
+			default:
+				break;
+			}
+		}
+		if (date.size() != 2 || k!=2 || numb.size()==0) {
 			throw invalid_argument("Wrong date format: " + input);
 		}
-		return Date(year, month, day);
+		date.push_back(stoi(numb));
+		return Date(date[0],date[1],date[2]);
 	}
 
 	static string read_event(stringstream& sstream) {
@@ -84,14 +152,17 @@ public:
 
 class Writer {
 public:
-	static void write_date(Date date) {
-		printf("%04d-%02d-%02d ", date.Year(), date.Month(), date.Day());
+	static void write_events_with_date(Date date, set<string> events) {
+		for (auto event : events) {
+			cout << setfill('0');
+			cout << setw(4) << date.Year() << '-' << setw(2) << date.Month() << '-' << setw(2) << date.Day()<<' ';
+			cout << event << endl;
+		}
 	}
 	static void write_events(set<string> events) {
 		for (auto event : events) {
-			cout << event << ' ';
+			cout << event << endl;
 		}
-		cout << endl;
 	}
 };
 
@@ -107,10 +178,9 @@ public:
 	}
 	void Start() {
 		string str, command;
-		while (true) {
+		while (getline(cin, str)) {
 			try
 			{	
-				getline(cin, str);
 				if (str == "") {
 					continue;
 				}
@@ -167,8 +237,7 @@ private:
 
 	void Print(stringstream& sstream) {
 		for (auto temp : this->bd) {
-			Writer::write_date(temp.first);
-			Writer::write_events(temp.second);
+			Writer::write_events_with_date(temp.first, temp.second);
 		}
 	}
 };

@@ -43,14 +43,6 @@ public:
         return this->denominator;
     }
 
-    /*void SetDenominator(int denominator) {
-        this->denominator = denominator;
-    }
-
-    void SetNumerator(int numerator) {
-        this->numerator = numerator;
-    }*/
-
 private:
     int numerator;
     int denominator;
@@ -93,10 +85,6 @@ ostream& operator<<(ostream& stream, const Rational& rational) {
 }
 
 istream& operator>>(istream& stream, Rational& rational) {
-    /*if (stream.rdbuf()->in_avail() == 0) {
-        rational = Rational();
-        return stream;
-    }*/
     int numerator, denominator;
     char sign;
     bool empty = !(stream >> numerator >> sign >> denominator);

@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ForCourse", "ForCourse\ForCourse.vcxproj", "{67C62535-C057-429B-B426-366055FB6245}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EnshureEqual", "EnshureEqual\EnshureEqual.vcxproj", "{FBEC4904-6BED-496F-A4AE-CC714B1592AB}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Исключения в классе Rational", "Исключения в классе Rational\Исключения в классе Rational.vcxproj", "{8128C486-FD46-40F9-9844-FAA073A64E19}"
@@ -23,14 +21,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{67C62535-C057-429B-B426-366055FB6245}.Debug|x64.ActiveCfg = Debug|x64
-		{67C62535-C057-429B-B426-366055FB6245}.Debug|x64.Build.0 = Debug|x64
-		{67C62535-C057-429B-B426-366055FB6245}.Debug|x86.ActiveCfg = Debug|Win32
-		{67C62535-C057-429B-B426-366055FB6245}.Debug|x86.Build.0 = Debug|Win32
-		{67C62535-C057-429B-B426-366055FB6245}.Release|x64.ActiveCfg = Release|x64
-		{67C62535-C057-429B-B426-366055FB6245}.Release|x64.Build.0 = Release|x64
-		{67C62535-C057-429B-B426-366055FB6245}.Release|x86.ActiveCfg = Release|Win32
-		{67C62535-C057-429B-B426-366055FB6245}.Release|x86.Build.0 = Release|Win32
 		{FBEC4904-6BED-496F-A4AE-CC714B1592AB}.Debug|x64.ActiveCfg = Debug|x64
 		{FBEC4904-6BED-496F-A4AE-CC714B1592AB}.Debug|x64.Build.0 = Debug|x64
 		{FBEC4904-6BED-496F-A4AE-CC714B1592AB}.Debug|x86.ActiveCfg = Debug|Win32
